@@ -1,18 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-@import '~normalize.css';
+@import 'base/fonts';
+@import 'base/normalize';
 
-@import 'header';
-@import 'toolbar';
-@import 'formula';
-@import 'table';
+@import 'base/variables';
+@import 'base/mixins';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-}
+@import 'header/header';
+@import 'editor';
