@@ -12,7 +12,7 @@
   }
 }
 
-@mixin button($color: rgba(106, 104, 104, 0.23)) {
+@mixin button($color: #e87676) {
   cursor: pointer;
   user-select: none;
   background-color: transparent;
@@ -24,12 +24,12 @@
 
   &:hover {
     & > span {
-      color: #e87676;
+      color: $color;
     }
   }
 
   &:active {
-    background-color: $color;
+    background-color: rgba(106, 104, 104, 0.23);
     transition: all 0.1s;
   }
 }

@@ -1,11 +1,15 @@
 .titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: $header-height;
+
   &__name {
     border: 1px solid transparent;
     border-radius: 3px;
-    width: 130px;
-    font-size: 16px;
-    height: 24px;
-    min-width: 1px;
+    width: 145px;
+    font-size: 18px;
+    height: 34px;
     padding: 2px 7px;
     color: #5f6368;
 
@@ -15,8 +19,7 @@
 
   &__controls {
   }
-}
-
-.button {
-  @include button();
+  .button {
+    @include button();
+  }
 }
