@@ -3,6 +3,30 @@
   color: #888;
   height: 100%;
   max-width: 100%;
+
+  &__titlebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 0 4px;
+  }
+
+  &__toolbar {
+    position: absolute;
+    top: $header-height;
+    padding: 0 4px;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__formula {
+    position: absolute;
+    padding: 4px;
+    top: $header-height + $toolbar-height;
+    border-bottom: 1px solid $border-color;
+  }
+
   &__editor {
     position: relative;
     overflow-x: auto;
@@ -13,5 +37,7 @@
   }
 }
 
-@import 'header/header';
+@import 'titlebar';
+@import 'toolbar';
+@import 'formula';
 @import 'editor';

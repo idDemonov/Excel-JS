@@ -3,6 +3,7 @@
   height: $toolbar-height;
   display: flex;
   align-items: center;
+
   .button {
     @include button(green);
   }

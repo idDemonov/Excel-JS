@@ -17,8 +17,6 @@
     @include focus();
   }
 
-  &__controls {
-  }
   .button {
     @include button();
   }
