@@ -6,7 +6,7 @@ import { Formula } from '@/components/formula/Formula';
 import { Editor } from '@/components/editor/Editor';
 
 const excel = new Excel('#app', {
-  component: [Titlebar, Toolbar, Formula, Editor],
+  components: [Titlebar, Toolbar, Formula, Editor],
 });
 
 excel.render();
