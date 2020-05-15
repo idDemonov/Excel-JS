@@ -1,0 +1,25 @@
+.titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: $header-height;
+
+  &__name {
+    border: 1px solid transparent;
+    border-radius: 3px;
+    width: 145px;
+    font-size: 18px;
+    height: 34px;
+    padding: 2px 7px;
+    color: $color-grey;
+
+    @include hover();
+    @include focus();
+  }
+
+  &__controls {
+  }
+  .button {
+    @include button();
+  }
+}

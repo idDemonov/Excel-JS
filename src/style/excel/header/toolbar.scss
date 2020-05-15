@@ -1,0 +1,9 @@
+.toolbar {
+  width: 100%;
+  height: $toolbar-height;
+  display: flex;
+  align-items: center;
+  .button {
+    @include button(green);
+  }
+}

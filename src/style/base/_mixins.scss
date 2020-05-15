@@ -1,0 +1,35 @@
+@mixin focus() {
+  &:focus {
+    outline: none;
+    color: $color-black;
+    outline: #91bfcc auto 0.1em;
+  }
+}
+
+@mixin hover($color: #8a8d8e) {
+  &:hover {
+    border: 1px solid $color;
+  }
+}
+
+@mixin button($color: #e87676) {
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 4px 4px 0 4px;
+  border-radius: 4px;
+
+  @include focus();
+
+  &:hover {
+    & > span {
+      color: $color;
+    }
+  }
+
+  &:active {
+    background-color: $button-active;
+    transition: all 0.1s;
+  }
+}
