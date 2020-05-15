@@ -11,7 +11,7 @@
     font-size: 18px;
     height: 34px;
     padding: 2px 7px;
-    color: #5f6368;
+    color: $color-grey;
 
     @include hover();
     @include focus();

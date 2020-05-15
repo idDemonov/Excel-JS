@@ -1,6 +1,16 @@
+
+// Size
 $header-height: 44px;
+$toolbar-height: 44px;
+$formula-height: 30px;
+$formula-font-size: 20px;
 
 // Colors
+// Font
+$color-grey: #5f6368;
+$color-black: #1a1a1a;
+// Other
 $border-color: #c0c0c0;
-$shadowFocus: 0 0 0 0.1em rgb(145, 191, 204);
-$shadowHover: 0 0 0 0.1em rgb(145, 191, 204);
+$shadowFocus: 0 0 0 0.1em #91bfcc;
+$shadowHover: 0 0 0 0.1em #91bfcc;
+$button-active: #dddcdc;

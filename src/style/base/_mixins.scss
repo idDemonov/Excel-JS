@@ -2,7 +2,7 @@
   &:focus {
     box-shadow: $shadowFocus;
     outline: none;
-    color: #1a1a1a;
+    color: $color-black;
   }
 }
 
@@ -29,7 +29,7 @@
   }
 
   &:active {
-    background-color: rgba(106, 104, 104, 0.23);
+    background-color: $button-active;
     transition: all 0.1s;
   }
 }
