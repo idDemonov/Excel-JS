@@ -16,66 +16,60 @@
   <body>
     <div id="root" class="container">
       <div class="excel">
-        <header class="header">
-          <div class="header__titlebar titlebar">
-            <input type="text" class="titlebar__name" value="Новая таблица" />
+        <div class="excel__titlebar titlebar">
+          <input type="text" class="titlebar__name" value="Новая таблица" />
 
-            <div class="titlebar__controls">
-              <button class="button">
-                <span class="material-icons">
-                  delete_outline
-                </span>
-              </button>
-              <button class="button">
-                <span class="material-icons">
-                  exit_to_app
-                </span>
-              </button>
-            </div>
-          </div>
-
-          <div class="header__toolbar toolbar">
+          <div class="titlebar__controls">
             <button class="button">
               <span class="material-icons">
-                format_align_left
+                delete_outline
               </span>
             </button>
             <button class="button">
               <span class="material-icons">
-                format_align_justify
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_align_right
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_bold
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_underlined
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_italic
+                exit_to_app
               </span>
             </button>
           </div>
+        </div>
 
-          <div class="header__formula formula">
-            <div class="formula__label">fx</div>
-            <div
-              class="formula__input"
-              contenteditable
-              spellcheck="false"
-            ></div>
-          </div>
-        </header>
+        <div class="excel__toolbar toolbar">
+          <button class="button">
+            <span class="material-icons">
+              format_align_left
+            </span>
+          </button>
+          <button class="button">
+            <span class="material-icons">
+              format_align_justify
+            </span>
+          </button>
+          <button class="button">
+            <span class="material-icons">
+              format_align_right
+            </span>
+          </button>
+          <button class="button">
+            <span class="material-icons">
+              format_bold
+            </span>
+          </button>
+          <button class="button">
+            <span class="material-icons">
+              format_underlined
+            </span>
+          </button>
+          <button class="button">
+            <span class="material-icons">
+              format_italic
+            </span>
+          </button>
+        </div>
+
+        <div class="excel__formula formula">
+          <div class="formula__label">fx</div>
+          <div class="formula__input" contenteditable spellcheck="false"></div>
+        </div>
 
         <main class="excel__editor editor">
           <div class="row">
