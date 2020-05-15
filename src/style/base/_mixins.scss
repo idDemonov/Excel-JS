@@ -1,6 +1,5 @@
 @mixin focus() {
   &:focus {
-    //box-shadow: $shadowFocus;
     outline: none;
     color: $color-black;
     outline: #91bfcc auto 0.1em;

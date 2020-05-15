@@ -1,0 +1,25 @@
+.homescreen {
+  color: $color-black;
+  &__header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: $homescreen-header-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    box-shadow: 0 2px 5px 2px rgba(60, 64, 67, 0.15);
+  }
+  &__templates {
+    margin-top: $homescreen-header-height;
+    padding: 24px;
+  }
+  &__spreadsheets {
+    padding: 16px;
+  }
+}
+
+@import "templates";
+@import "spreadsheets";
