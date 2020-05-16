@@ -1,6 +1,6 @@
 class Dom {
   constructor(selector) {
-    this.$el =
+    this.$nativeElement =
       typeof selector === 'string'
         ? document.querySelector(selector)
         : selector;
@@ -8,10 +8,10 @@ class Dom {
 
   html(html) {
     if (typeof html === 'string') {
-      this.$el.innerHTML = html;
+      this.$nativeElement.innerHTML = html;
       return this;
     }
-    return this.$el.outerHTML.trim();
+    return this.$nativeElement.outerHTML.trim();
   }
 
   clear() {
@@ -20,8 +20,8 @@ class Dom {
   }
 
   append(node) {
-    if (node instanceof Dom) node = node.$el;
-    this.$el.append(node);
+    if (node instanceof Dom) node = node.$nativeElement;
+    this.$nativeElement.append(node);
     return this;
   }
 }
