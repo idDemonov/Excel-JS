@@ -2,18 +2,21 @@ import { $ } from '@core/dom';
 
 export class Excel {
   constructor(selector, options) {
-    this.$container = document.querySelector(selector);
+    this.$container = $(selector);
     this.components = options.components || [];
   }
 
   getRoot() {
     const $root = $.create('div', 'excel');
+
     this.components.forEach(Component => {
-      const $el = $.create('div', ...Component.classes);
-      const component = new Component($el);
-      $el.innerHTML = component.toHTML();
-      $root.append($el);
+      const $nativeElement = $.create('div', ...Component.classes);
+      const component = new Component();
+
+      $nativeElement.html(component.toHTML());
+      $root.append($nativeElement);
     });
+
     return $root;
   }
 
