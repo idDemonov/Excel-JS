@@ -7,14 +7,19 @@ export class Excel {
   }
 
   getRoot() {
+    // Создать контейнер для всех компонентов
     const $root = $.create('div', 'excel');
 
-    this.components.forEach(Component => {
-      const $nativeElement = $.create('div', ...Component.classes);
-      const component = new Component();
+    this.components = this.components.map(Component => {
+      // Создать обертку с заданными классами
+      const $el = $.create('div', ...Component.classes);
+      // Передать обертку в компонент, для инициализации базовых настроек
+      const component = new Component($el);
+      // Передать разметку компонента в его обёртку
+      $el.html(component.toHTML());
 
-      $nativeElement.html(component.toHTML());
-      $root.append($nativeElement);
+      $root.append($el);
+      return component;
     });
 
     return $root;
@@ -22,5 +27,6 @@ export class Excel {
 
   render() {
     this.$container.append(this.getRoot());
+    this.components.forEach(component => component.init());
   }
 }
