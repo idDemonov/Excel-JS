@@ -5,11 +5,9 @@
     "browser": true,
     "node": true
   },
+  "plugins": ["prettier"],
   "rules": {
-    "object-curly-spacing": "off",
-    "arrow-parens": "off",
-    "require-jsdoc": "off",
-    "operator-linebreak": "off"
+    "prettier/prettier": "error"
   },
-  "extends": ["eslint:recommended", "google"]
+  "extends": ["plugin:prettier/recommended"]
 }
