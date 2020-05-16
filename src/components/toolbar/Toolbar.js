@@ -1,40 +1,40 @@
 import { ExcelComponent } from '@core/Excel-component';
 
 export class Toolbar extends ExcelComponent {
-  static classes = ['header__toolbar', 'toolbar'];
+  static classes = ['excel__toolbar', 'toolbar'];
 
   toHTML() {
     return `
-            <button class="button">
-              <span class="material-icons">
-                format_align_left
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_align_justify
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_align_right
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_bold
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_underlined
-              </span>
-            </button>
-            <button class="button">
-              <span class="material-icons">
-                format_italic
-              </span>
-            </button>
-         `;
+      <button class="button">
+        <span class="material-icons">
+          format_align_left
+        </span>
+      </button>
+      <button class="button">
+        <span class="material-icons">
+          format_align_justify
+        </span>
+      </button>
+      <button class="button">
+        <span class="material-icons">
+          format_align_right
+        </span>
+      </button>
+      <button class="button">
+        <span class="material-icons">
+          format_bold
+        </span>
+      </button>
+      <button class="button">
+        <span class="material-icons">
+          format_underlined
+        </span>
+      </button>
+      <button class="button">
+        <span class="material-icons">
+          format_italic
+        </span>
+      </button>
+    `;
   }
 }
