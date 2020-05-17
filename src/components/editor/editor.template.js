@@ -3,18 +3,25 @@ const WORD_CODES = {
   Z: 90,
 };
 
-const createRow = (num, content) => `
+const RESIZE = '<div class="resize"></div>';
+
+const createRow = (num, content) => {
+  const rowNumber = num
+    ? `<div class="row__number">${num} ${RESIZE}</div>`
+    : '<div class="row__number"></div>';
+
+  return `
     <div class="row">
-      <div class="row__number">${num ? num : ''}</div>
+      ${rowNumber}
       <div class="row__data">${content}</div>
-    </div>
-`;
+    </div>`;
+};
 
 const toCell = () => `<div class="row__cell" contenteditable></div>`;
 
 const toChar = (_, idx) => String.fromCharCode(WORD_CODES.A + idx);
 
-const toColumn = letter => `<div class="column">${letter}</div>`;
+const toColumn = letter => `<div class="column">${letter}${RESIZE}</div>`;
 
 export const createTable = (rowCount = 15) => {
   const colsCount = WORD_CODES.Z - WORD_CODES.A + 1;
