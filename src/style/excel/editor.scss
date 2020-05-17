@@ -11,19 +11,26 @@
   border-left: 0;
   font-weight: bold;
 
-  &__resize {
-    opacity: 0;
-    position: absolute;
+  & > .resize {
     top: 0;
-    bottom: 0;
-    right: 0;
     width: 5px;
-    background: $resize;
 
     &:hover {
-      opacity: 1;
       cursor: w-resize;
     }
+  }
+}
+
+.resize {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: $resize-color;
+
+  &:hover {
+    opacity: 1;
+    cursor: w-resize;
   }
 }
 
@@ -32,6 +39,7 @@
   min-height: 20px;
   height: $row-height;
   color: $color-grey;
+  position: relative;
 
   &__number {
     display: flex;
@@ -43,6 +51,17 @@
     background-color: $background-cell-color;
     border-top: 0;
     font-weight: bold;
+
+    & > .resize {
+      left: 0;
+      height: 6px;
+      width: $number-width;
+
+      &:hover {
+        opacity: 1;
+        cursor: s-resize;
+      }
+    }
   }
 
   &__data {
