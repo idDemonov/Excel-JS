@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   min-width: $cell-width;
   height: 100%;
   border: 1px solid $border-color;
@@ -9,6 +10,29 @@
   border-top: 0;
   border-left: 0;
   font-weight: bold;
+
+  & > .resize {
+    top: 0;
+    width: 5px;
+
+    &:hover {
+      cursor: w-resize;
+    }
+  }
+}
+
+.resize {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: $resize-color;
+  z-index: 1000;
+
+  &:hover {
+    opacity: 1 !important;
+    cursor: w-resize;
+  }
 }
 
 .row {
@@ -21,12 +45,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     min-width: $number-width;
     height: 100%;
     border: 1px solid $border-color;
     background-color: $background-cell-color;
     border-top: 0;
     font-weight: bold;
+
+    & > .resize {
+      left: 0;
+      height: 6px;
+
+      &:hover {
+        opacity: 1;
+        cursor: s-resize;
+      }
+    }
   }
 
   &__data {
@@ -34,8 +69,8 @@
   }
 
   &__cell {
-    min-width: 40px;
     width: $cell-width;
+    min-width: $cell-width;
     padding: 4px;
     height: 100%;
     border: 1px solid $border-color-cell;
