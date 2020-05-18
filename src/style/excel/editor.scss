@@ -27,9 +27,10 @@
   right: 0;
   bottom: 0;
   background: $resize-color;
+  z-index: 1000;
 
   &:hover {
-    opacity: 1;
+    opacity: 1 !important;
     cursor: w-resize;
   }
 }
@@ -39,12 +40,12 @@
   min-height: 20px;
   height: $row-height;
   color: $color-grey;
-  position: relative;
 
   &__number {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     min-width: $number-width;
     height: 100%;
     border: 1px solid $border-color;
@@ -55,7 +56,6 @@
     & > .resize {
       left: 0;
       height: 6px;
-      width: $number-width;
 
       &:hover {
         opacity: 1;
@@ -69,8 +69,8 @@
   }
 
   &__cell {
-    min-width: 40px;
     width: $cell-width;
+    min-width: $cell-width;
     padding: 4px;
     height: 100%;
     border: 1px solid $border-color-cell;
