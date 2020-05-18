@@ -32,6 +32,28 @@ class Dom {
     this.$nativeElement.append(node);
     return this;
   }
+
+  getCoords() {
+    return this.$nativeElement.getBoundingClientRect();
+  }
+
+  closest(selector) {
+    return $(this.$nativeElement.closest(selector));
+  }
+
+  findAll(selector) {
+    return this.$nativeElement.querySelectorAll(selector);
+  }
+
+  get dataset() {
+    return this.$nativeElement.dataset;
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach(key => {
+      this.$nativeElement.style[key] = styles[key];
+    });
+  }
 }
 
 export const $ = s => new Dom(s);
