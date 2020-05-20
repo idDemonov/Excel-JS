@@ -62,13 +62,13 @@ class Dom {
   }
 
   css(styles = {}) {
-    Object.keys(styles).forEach(key => {
+    Object.keys(styles).forEach((key) => {
       this.$nativeElement.style[key] = styles[key];
     });
   }
 }
 
-export const $ = s => new Dom(s);
+export const $ = (s) => new Dom(s);
 
 $.create = (tagName, className, ...classes) => {
   const el = document.createElement(tagName);
