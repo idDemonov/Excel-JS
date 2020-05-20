@@ -41,8 +41,20 @@ class Dom {
     return $(this.$nativeElement.closest(selector));
   }
 
+  find(selector) {
+    return $(this.$nativeElement.querySelector(selector));
+  }
+
   findAll(selector) {
     return this.$nativeElement.querySelectorAll(selector);
+  }
+
+  addClass(name) {
+    this.$nativeElement.classList.add(name);
+  }
+
+  removeClass(name) {
+    this.$nativeElement.classList.remove(name);
   }
 
   get dataset() {
