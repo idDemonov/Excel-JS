@@ -57,6 +57,11 @@ class Dom {
     this.$nativeElement.classList.remove(name);
   }
 
+  focus() {
+    this.$nativeElement.focus();
+    return this;
+  }
+
   id(parse) {
     if (parse) {
       const parsed = this.id().split(':');
