@@ -57,6 +57,17 @@ class Dom {
     this.$nativeElement.classList.remove(name);
   }
 
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':');
+      return {
+        row: +parsed[0],
+        col: +parsed[1],
+      };
+    }
+    return this.dataset.id;
+  }
+
   get dataset() {
     return this.$nativeElement.dataset;
   }
