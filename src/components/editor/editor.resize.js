@@ -15,7 +15,7 @@ export const resizeHandler = ($root, event) => {
   $resize.css({ opacity: 1, [sideProp]: '-5000px' });
   document.body.style.cursor = cursor;
 
-  document.onmousemove = e => {
+  document.onmousemove = (e) => {
     if (type === 'col') {
       const delta = e.pageX - coords.right;
       value = coords.width + delta;
@@ -36,7 +36,7 @@ export const resizeHandler = ($root, event) => {
       $parent.css({ width: value + 'px' });
       $root
         .findAll(`[data-col="${$parent.dataset.col}"]`)
-        .forEach(el => (el.style.width = value + 'px'));
+        .forEach((el) => (el.style.width = value + 'px'));
     } else {
       $parent.css({ height: value + 'px' });
     }

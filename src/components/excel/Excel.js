@@ -10,7 +10,7 @@ export class Excel {
     // Создать контейнер для всех компонентов
     const $root = $.create('div', 'excel');
 
-    this.components = this.components.map(Component => {
+    this.components = this.components.map((Component) => {
       // Создать обертку с заданными классами
       const $el = $.create('div', ...Component.classes);
       // Передать обертку в компонент, для инициализации базовых настроек
@@ -27,6 +27,6 @@ export class Excel {
 
   render() {
     this.$container.append(this.getRoot());
-    this.components.forEach(component => component.init());
+    this.components.forEach((component) => component.init());
   }
 }

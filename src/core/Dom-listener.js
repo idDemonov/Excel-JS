@@ -8,19 +8,21 @@ export class DomListener {
   }
 
   initDOMListeners() {
-    this.listeners.forEach(listener => {
+    this.listeners.forEach((listener) => {
       const method = getMethodName(listener);
+
       if (!this[method]) {
         // свойство name берётся из класса ExcelComponent
         throw new Error(`Метод ${method}, не найден у компонента ${this.name}`);
       }
+
       this[method] = this[method].bind(this);
       this.$root.on(listener, this[method]);
     });
   }
 
   removeDOMListeners() {
-    this.listeners.forEach(listener => {
+    this.listeners.forEach((listener) => {
       const method = getMethodName(listener);
       this.$root.removeEvent(listener, this[method]);
     });
