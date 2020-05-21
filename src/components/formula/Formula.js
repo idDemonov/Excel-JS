@@ -17,10 +17,7 @@ export class Formula extends ExcelComponent {
    `;
   }
 
-  onInput(event) {
-    console.log('Formula: OnInput', event);
-  }
-  onClick() {
-    console.log('Click');
-  }
+  onInput(event) {}
+
+  onClick() {}
 }

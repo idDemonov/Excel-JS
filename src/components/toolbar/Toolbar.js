@@ -10,9 +10,7 @@ export class Toolbar extends ExcelComponent {
     });
   }
 
-  onClick(event) {
-    console.log('Click', event);
-  }
+  onClick(event) {}
 
   toHTML() {
     return `
