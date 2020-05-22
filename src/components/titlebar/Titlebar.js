@@ -3,6 +3,14 @@ import { ExcelComponent } from '@core/Excel-component';
 export class Titlebar extends ExcelComponent {
   static classes = ['excel__titlebar', 'titlebar'];
 
+  constructor($root, options) {
+    super($root, {
+      name: 'Titlebar',
+      listeners: [],
+      ...options,
+    });
+  }
+
   toHTML() {
     return `
       <input type="text" class="titlebar__name" value="Новая таблица" />

@@ -3,10 +3,11 @@ import { ExcelComponent } from '@core/Excel-component';
 export class Formula extends ExcelComponent {
   static classes = ['excel__formula', 'formula'];
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Formula',
       listeners: ['input', 'click'],
+      ...options,
     });
   }
 

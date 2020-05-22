@@ -1,23 +1,23 @@
 import { $ } from '@core/dom';
+import { EventObserver } from '@core/Observer';
 
 export class Excel {
   constructor(selector, options) {
     this.$container = $(selector);
     this.components = options.components || [];
+    this.observer = new EventObserver();
   }
 
   getRoot() {
     // Создать контейнер для всех компонентов
     const $root = $.create('div', 'excel');
 
-    this.components = this.components.map((Component) => {
-      // Создать обертку с заданными классами
-      const $el = $.create('div', ...Component.classes);
-      // Передать обертку в компонент, для инициализации базовых настроек
-      const component = new Component($el);
-      // Передать разметку компонента в его обёртку
-      $el.html(component.toHTML());
+    const componentsOptions = { observer: this.observer };
 
+    this.components = this.components.map((Component) => {
+      const $el = $.create('div', ...Component.classes);
+      const component = new Component($el, componentsOptions);
+      $el.html(component.toHTML());
       $root.append($el);
       return component;
     });

@@ -8,10 +8,11 @@ import { keyboardHandler } from '@/components/editor/editor.keyboard';
 export class Editor extends ExcelComponent {
   static classes = ['excel__editor', 'editor'];
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Editor',
       listeners: ['mousedown', 'keydown'],
+      ...options,
     });
   }
 
