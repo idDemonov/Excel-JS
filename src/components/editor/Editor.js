@@ -5,6 +5,7 @@ import { EditorSelection } from '@/components/editor/Editor-selection';
 import { handlerSelection } from '@/components/editor/editor.selection';
 import { keyboardHandler } from '@/components/editor/editor.keyboard';
 import { $ } from '@core/dom';
+import * as actions from '@/redux/actions';
 
 export class Editor extends ExcelComponent {
   static classes = ['excel__editor', 'editor'];
@@ -36,9 +37,18 @@ export class Editor extends ExcelComponent {
     });
   }
 
+  async resizeEditor(event) {
+    try {
+      const data = await resizeHandler(this.$root, event);
+      this.$dispatch(actions.editorResize(data));
+    } catch (e) {
+      console.warn('Resize error:', e.message);
+    }
+  }
+
   onMousedown(event) {
     if (event.target.dataset.resize) {
-      resizeHandler(this.$root, event);
+      this.resizeEditor(event);
     } else if (event.target.dataset.id) {
       const $select = handlerSelection(this.$root, this.selection, event);
       this.$$notify('editor:input', $select);
