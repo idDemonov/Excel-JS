@@ -1,0 +1,1 @@
+export const EDITOR_RESIZE = 'EDITOR_RESIZE';
