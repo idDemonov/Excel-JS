@@ -12,16 +12,16 @@ export class EventObserver {
   }
 
   // Подписаться на события
-  subscribe(event, subscriber) {
+  attach(event, subscriber) {
     this.observers[event] = this.observers[event] || [];
     this.observers[event].push(subscriber);
 
     // Вернуть функцию для отписки
-    return () => this.unsubscribe(event, subscriber);
+    return () => this.detach(event, subscriber);
   }
 
   // Отписаться от событий
-  unsubscribe(event, subscriber) {
+  detach(event, subscriber) {
     this.observers[event] = this.observers[event].filter((fn) => {
       return fn !== subscriber;
     });

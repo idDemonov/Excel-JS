@@ -29,11 +29,9 @@ export class Editor extends ExcelComponent {
     this.selection.select($cell);
     this.$$notify('editor:select', $cell);
 
-    this.$$subscribe('formula:input', (text) =>
-      this.selection.current.text(text)
-    );
+    this.$$attach('formula:input', (text) => this.selection.current.text(text));
 
-    this.$$subscribe('formula:enter', () => {
+    this.$$attach('formula:enter', () => {
       this.selection.current.focus();
     });
   }
@@ -48,8 +46,8 @@ export class Editor extends ExcelComponent {
   }
 
   onKeydown(event) {
-    const $next = keyboardHandler(event, this.selection, this.$root);
-    if ($next) this.$$notify('editor:select', $next);
+    const $select = keyboardHandler(event, this.selection, this.$root);
+    if ($select) this.$$notify('editor:select', $select);
   }
 
   onInput(event) {

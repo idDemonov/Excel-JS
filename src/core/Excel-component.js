@@ -22,8 +22,8 @@ export class ExcelComponent extends DomListener {
   }
 
   // $$ - Методы Observer`а
-  $$subscribe(event, fn) {
-    const unsubscriber = this.observer.subscribe(event, fn);
+  $$attach(event, fn) {
+    const unsubscriber = this.observer.attach(event, fn);
     this.unsubscribers.push(unsubscriber);
   }
 

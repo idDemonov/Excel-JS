@@ -24,11 +24,11 @@ export class Formula extends ExcelComponent {
 
     this.$formula = this.$root.find('.formula__input');
 
-    this.$$subscribe('editor:select', ($cell) => {
+    this.$$attach('editor:select', ($cell) => {
       this.$formula.text($cell.text());
     });
 
-    this.$$subscribe('editor:input', ($cell) => {
+    this.$$attach('editor:input', ($cell) => {
       this.$formula.text($cell.text());
     });
   }
