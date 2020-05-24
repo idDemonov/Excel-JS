@@ -27,7 +27,7 @@ export class Editor extends ExcelComponent {
     this.selection = new EditorSelection();
     const $cell = this.$root.find('[data-id="0:0"]');
     this.selection.select($cell);
-    this.$$dispatch('editor:select', $cell);
+    this.$$notify('editor:select', $cell);
 
     this.$$subscribe('formula:input', (text) =>
       this.selection.current.text(text)
@@ -43,16 +43,16 @@ export class Editor extends ExcelComponent {
       resizeHandler(this.$root, event);
     } else if (event.target.dataset.id) {
       const $select = handlerSelection(this.$root, this.selection, event);
-      this.$$dispatch('editor:input', $select);
+      this.$$notify('editor:input', $select);
     }
   }
 
   onKeydown(event) {
     const $next = keyboardHandler(event, this.selection, this.$root);
-    if ($next) this.$$dispatch('editor:select', $next);
+    if ($next) this.$$notify('editor:select', $next);
   }
 
   onInput(event) {
-    this.$$dispatch('editor:input', $(event.target));
+    this.$$notify('editor:input', $(event.target));
   }
 }

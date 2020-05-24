@@ -27,7 +27,7 @@ export class ExcelComponent extends DomListener {
     this.unsubscribers.push(unsubscriber);
   }
 
-  $$dispatch(event, ...args) {
-    this.observer.dispatch(event, ...args);
+  $$notify(event, ...args) {
+    this.observer.notify(event, ...args);
   }
 }

@@ -34,13 +34,13 @@ export class Formula extends ExcelComponent {
   }
 
   onInput({ target }) {
-    this.$$dispatch('formula:input', $(target).text());
+    this.$$notify('formula:input', $(target).text());
   }
 
   onKeydown(event) {
     const keys = ['Enter', 'Tab'];
     if (!keys.includes(event.key)) return;
     event.preventDefault();
-    this.$$dispatch('formula:enter');
+    this.$$notify('formula:enter');
   }
 }

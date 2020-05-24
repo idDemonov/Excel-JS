@@ -5,7 +5,7 @@ export class EventObserver {
   }
 
   // Уведомление подписчиков
-  dispatch(event, ...args) {
+  notify(event, ...args) {
     if (this.observers[event]) {
       this.observers[event].forEach((subscriber) => subscriber(...args));
     }
