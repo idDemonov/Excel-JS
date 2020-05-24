@@ -1,12 +1,15 @@
 import * as types from '@/redux/constants';
 
 export const rootReducer = (state, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  switch (type) {
     case types.EDITOR_RESIZE:
+      const field = payload.type === 'col' ? 'colState' : 'rowState';
       return {
         ...state,
-        colState: {
-          ...state?.colState,
+        [field]: {
+          ...state?.[field],
           [action.payload.id]: action.payload.value,
         },
       };

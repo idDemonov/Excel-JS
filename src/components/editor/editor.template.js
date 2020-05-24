@@ -4,18 +4,24 @@ const WORD_CODES = {
 };
 
 const DEFAULT_WIDTH = 120;
+const DEFAULT_HEIGHT = 24;
 
 const toChar = (_, ind) => String.fromCharCode(WORD_CODES.A + ind);
 
 const getWidth = (state, ind) => {
-  return (state?.colState[ind] || DEFAULT_WIDTH) + 'px';
+  return (state?.colState?.[ind] || DEFAULT_WIDTH) + 'px';
 };
 
-const createRow = (num, content) => {
+const getHeight = (state, ind) => {
+  return (state?.rowState?.[ind] || DEFAULT_HEIGHT) + 'px';
+};
+
+const createRow = (num, content, state = {}) => {
+  const height = getHeight(state, num);
   const resize = '<div class="resize" data-resize="row"></div>';
 
   return `
-    <div class="row" data-type="resize">
+    <div class="row" data-type="resize" data-row="${num}" style="height: ${height}">
       <div class="row__number">${num ? num + resize : ''}</div>
       <div class="row__data">${content}</div>
     </div>`;
@@ -62,7 +68,7 @@ export const createTable = (rowCount = 15, state = {}) => {
       .fill('')
       .map(toCell(count, state))
       .join('');
-    const row = createRow(count + 1, cells);
+    const row = createRow(count + 1, cells, state);
     rows.push(row);
   }
 

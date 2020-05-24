@@ -43,7 +43,8 @@ export const resizeHandler = ($root, event) => {
 
       resolve({
         value,
-        id: type === 'col' ? $parent.dataset.col : null,
+        type,
+        id: $parent.dataset[type],
       });
 
       $resize.css({ opacity: 0, bottom: 0, right: 0 });
