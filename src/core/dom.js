@@ -14,6 +14,17 @@ class Dom {
     return this.$nativeElement.outerHTML.trim();
   }
 
+  text(text) {
+    if (typeof text === 'string') {
+      this.$nativeElement.textContent = text;
+      return this;
+    }
+    if (this.$nativeElement.tagName.toLowerCase() === 'input') {
+      return this.$nativeElement.value.trim();
+    }
+    return this.$nativeElement.textContent.trim();
+  }
+
   clear() {
     this.html('');
     return this;
@@ -51,10 +62,12 @@ class Dom {
 
   addClass(name) {
     this.$nativeElement.classList.add(name);
+    return this;
   }
 
   removeClass(name) {
     this.$nativeElement.classList.remove(name);
+    return this;
   }
 
   focus() {
