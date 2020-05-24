@@ -4,6 +4,7 @@ import { resizeHandler } from '@/components/editor/editor.resize';
 import { EditorSelection } from '@/components/editor/Editor-selection';
 import { handlerSelection } from '@/components/editor/editor.selection';
 import { keyboardHandler } from '@/components/editor/editor.keyboard';
+import { $ } from '@core/dom';
 
 export class Editor extends ExcelComponent {
   static classes = ['excel__editor', 'editor'];
@@ -11,7 +12,7 @@ export class Editor extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: 'Editor',
-      listeners: ['mousedown', 'keydown'],
+      listeners: ['mousedown', 'keydown', 'input'],
       ...options,
     });
   }
@@ -26,17 +27,32 @@ export class Editor extends ExcelComponent {
     this.selection = new EditorSelection();
     const $cell = this.$root.find('[data-id="0:0"]');
     this.selection.select($cell);
+    this.$$dispatch('editor:select', $cell);
+
+    this.$$subscribe('formula:input', (text) =>
+      this.selection.current.text(text)
+    );
+
+    this.$$subscribe('formula:enter', () => {
+      this.selection.current.focus();
+    });
   }
 
   onMousedown(event) {
     if (event.target.dataset.resize) {
       resizeHandler(this.$root, event);
     } else if (event.target.dataset.id) {
-      handlerSelection(this.$root, this.selection, event);
+      const $select = handlerSelection(this.$root, this.selection, event);
+      this.$$dispatch('editor:input', $select);
     }
   }
 
   onKeydown(event) {
-    keyboardHandler(event, this.selection, this.$root);
+    const $next = keyboardHandler(event, this.selection, this.$root);
+    if ($next) this.$$dispatch('editor:select', $next);
+  }
+
+  onInput(event) {
+    this.$$dispatch('editor:input', $(event.target));
   }
 }

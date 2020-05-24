@@ -10,6 +10,7 @@ export const handlerSelection = ($root, selection, event) => {
     selection.selectGroup($cells);
   } else {
     selection.select($target);
+    return $target;
   }
 };
 
