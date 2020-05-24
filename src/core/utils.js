@@ -8,3 +8,11 @@ export const range = (start, end) => {
 
   return new Array(end - start + 1).fill('').map((_, ind) => start + ind);
 };
+
+export const storage = (key, data = null) => {
+  if (!data) {
+    return JSON.parse(localStorage.getItem(key));
+  }
+
+  return localStorage.setItem(key, JSON.stringify(data));
+};
