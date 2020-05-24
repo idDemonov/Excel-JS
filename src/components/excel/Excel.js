@@ -6,6 +6,7 @@ export class Excel {
     this.$container = $(selector);
     this.components = options.components || [];
     this.observer = new EventObserver();
+    this.store = options.store;
   }
 
   getRoot() {
