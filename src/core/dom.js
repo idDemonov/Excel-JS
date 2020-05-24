@@ -14,6 +14,17 @@ class Dom {
     return this.$nativeElement.outerHTML.trim();
   }
 
+  text(text) {
+    if (typeof text === 'string') {
+      this.$nativeElement.textContent = text;
+      return this;
+    }
+    if (this.$nativeElement.tagName.toLowerCase() === 'input') {
+      return this.$nativeElement.value.trim();
+    }
+    return this.$nativeElement.textContent.trim();
+  }
+
   clear() {
     this.html('');
     return this;
@@ -41,8 +52,38 @@ class Dom {
     return $(this.$nativeElement.closest(selector));
   }
 
+  find(selector) {
+    return $(this.$nativeElement.querySelector(selector));
+  }
+
   findAll(selector) {
     return this.$nativeElement.querySelectorAll(selector);
+  }
+
+  addClass(name) {
+    this.$nativeElement.classList.add(name);
+    return this;
+  }
+
+  removeClass(name) {
+    this.$nativeElement.classList.remove(name);
+    return this;
+  }
+
+  focus() {
+    this.$nativeElement.focus();
+    return this;
+  }
+
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':');
+      return {
+        row: +parsed[0],
+        col: +parsed[1],
+      };
+    }
+    return this.dataset.id;
   }
 
   get dataset() {
@@ -50,13 +91,13 @@ class Dom {
   }
 
   css(styles = {}) {
-    Object.keys(styles).forEach(key => {
+    Object.keys(styles).forEach((key) => {
       this.$nativeElement.style[key] = styles[key];
     });
   }
 }
 
-export const $ = s => new Dom(s);
+export const $ = (s) => new Dom(s);
 
 $.create = (tagName, className, ...classes) => {
   const el = document.createElement(tagName);
