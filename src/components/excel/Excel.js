@@ -12,7 +12,10 @@ export class Excel {
     // Создать контейнер для всех компонентов
     const $root = $.create('div', 'excel');
 
-    const componentsOptions = { observer: this.observer };
+    const componentsOptions = {
+      observer: this.observer,
+      store: this.store,
+    };
 
     this.components = this.components.map((Component) => {
       const $el = $.create('div', ...Component.classes);

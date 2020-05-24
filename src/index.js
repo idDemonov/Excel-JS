@@ -11,6 +11,7 @@ const store = createStore(rootReducer, {});
 
 const excel = new Excel('#app', {
   components: [Titlebar, Toolbar, Formula, Editor],
+  store,
 });
 
 excel.render();

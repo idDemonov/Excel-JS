@@ -21,6 +21,15 @@ export class ExcelComponent extends DomListener {
     this.unsubscribers.forEach((unsubscriber) => unsubscriber());
   }
 
+  // $ - Методы Redux
+  $dispatch(action) {
+    this.store.dispatch(action);
+  }
+
+  $subscribe(fn) {
+    this.store.subscribe(fn);
+  }
+
   // $$ - Методы Observer`а
   $$attach(event, fn) {
     const unsubscriber = this.observer.attach(event, fn);
