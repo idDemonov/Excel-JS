@@ -6,7 +6,7 @@ export class EditorSelection {
   // $el всегда instance класса dom
   select($el) {
     this.clear();
-    $el.addClass('selected');
+    $el.focus().addClass('selected');
     this.group.push($el);
     this.current = $el;
   }
