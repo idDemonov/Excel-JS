@@ -39,13 +39,15 @@ const toColumn = (state) => (letter, ind) => {
 };
 
 const toCell = (row, state) => (_, ind) => {
+  const id = `${row}:${ind}`;
   const width = getWidth(state, ind);
   return `
     <div class="row__cell" 
          data-col="${ind}" 
          style="width: ${width}"
-         data-id="${row}:${ind}" 
+         data-id="${id}" 
          contenteditable>
+        ${state.dataState?.[id] || ''}
     </div>
   `;
 };
