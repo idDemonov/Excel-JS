@@ -2,7 +2,7 @@ import { ExcelComponent } from '@core/Excel-component';
 import { createTable } from '@/components/editor/editor.template';
 import { resizeHandler } from '@/components/editor/editor.resize';
 import { EditorSelection } from '@/components/editor/Editor-selection';
-import { handlerSelection } from '@/components/editor/editor.selection';
+import { matrix } from '@/components/editor/editor.selection';
 import { keyboardHandler } from '@/components/editor/editor.keyboard';
 import { $ } from '@core/dom';
 import * as actions from '@/redux/actions';
@@ -24,13 +24,13 @@ export class Editor extends ExcelComponent {
 
   init() {
     super.init();
-
     this.selection = new EditorSelection();
-    const $cell = this.$root.find('[data-id="0:0"]');
-    this.selection.select($cell);
-    this.$$notify('editor:select', $cell);
+    this.selectionCell(this.$root.find('[data-id="0:0"]'));
 
-    this.$$attach('formula:input', (text) => this.selection.current.text(text));
+    this.$$attach('formula:input', (text) => {
+      this.selection.current.text(text);
+      this.updateTextInStore(text);
+    });
 
     this.$$attach('formula:enter', () => {
       this.selection.current.focus();
@@ -46,12 +46,33 @@ export class Editor extends ExcelComponent {
     }
   }
 
+  selectionCell($cell) {
+    this.selection.select($cell);
+    this.$$notify('editor:select', $cell);
+  }
+
+  updateTextInStore(value) {
+    this.$dispatch(
+      actions.changeText({
+        id: this.selection.current.id(),
+        value,
+      })
+    );
+  }
+
   onMousedown(event) {
     if (event.target.dataset.resize) {
       this.resizeEditor(event);
     } else if (event.target.dataset.id) {
-      const $select = handlerSelection(this.$root, this.selection, event);
-      this.$$notify('editor:input', $select);
+      const $target = $(event.target);
+      if (event.shiftKey) {
+        const $cells = matrix($target, this.selection.current).map((id) => {
+          return this.$root.find(`[data-id="${id}"]`);
+        });
+        this.selection.selectGroup($cells);
+      } else {
+        this.selectionCell($target);
+      }
     }
   }
 
@@ -61,6 +82,7 @@ export class Editor extends ExcelComponent {
   }
 
   onInput(event) {
-    this.$$notify('editor:input', $(event.target));
+    const text = $(event.target).text();
+    this.updateTextInStore(text);
   }
 }
