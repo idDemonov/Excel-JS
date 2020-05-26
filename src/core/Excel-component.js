@@ -4,6 +4,7 @@ export class ExcelComponent extends DomListener {
   constructor($root, options = {}) {
     super($root, options.listeners);
     this.name = options.name || '';
+    this.subscribe = options.subscribe || [];
     this.observer = options.observer;
     this.store = options.store;
     this.unsubscribers = [];
@@ -27,8 +28,8 @@ export class ExcelComponent extends DomListener {
     this.store.dispatch(action);
   }
 
-  $subscribe(fn) {
-    this.store.subscribe(fn);
+  storeChanged(changes) {
+    console.log(changes);
   }
 
   // $$ - Методы Observer`а
