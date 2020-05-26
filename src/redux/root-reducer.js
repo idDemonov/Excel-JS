@@ -9,8 +9,17 @@ export const rootReducer = (state, action) => {
       return {
         ...state,
         [field]: {
-          ...state?.[field],
-          [action.payload.id]: action.payload.value,
+          ...state[field],
+          [payload.id]: payload.value,
+        },
+      };
+    case types.CHANGE_TEXT:
+      return {
+        ...state,
+        currentText: payload.value,
+        dataState: {
+          ...state.dataState,
+          [payload.id]: payload.value,
         },
       };
     default:

@@ -6,3 +6,10 @@ export const editorResize = (payload) => {
     payload,
   };
 };
+
+export const changeText = (payload) => {
+  return {
+    type: types.CHANGE_TEXT,
+    payload,
+  };
+};
