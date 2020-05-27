@@ -37,6 +37,8 @@ export class Toolbar extends ExcelStateComponents {
       const value = JSON.parse($target.dataset.value);
       const key = Object.keys(value)[0];
 
+      this.$$notify('toolbar:style', value);
+
       this.setState({ [key]: value[key] });
     }
   }

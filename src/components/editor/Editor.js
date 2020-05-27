@@ -22,9 +22,13 @@ export class Editor extends ExcelComponent {
     return createTable(25, this.store.getState());
   }
 
+  prepare() {
+    this.selection = new EditorSelection();
+  }
+
   init() {
     super.init();
-    this.selection = new EditorSelection();
+
     this.selectionCell(this.$root.find('[data-id="0:0"]'));
 
     this.$$attach('formula:input', (text) => {
@@ -34,6 +38,10 @@ export class Editor extends ExcelComponent {
 
     this.$$attach('formula:enter', () => {
       this.selection.current.focus();
+    });
+
+    this.$$attach('toolbar:style', (style) => {
+      this.selection.applyStyle(style);
     });
   }
 

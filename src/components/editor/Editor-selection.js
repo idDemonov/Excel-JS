@@ -22,4 +22,8 @@ export class EditorSelection {
     this.group.forEach(($el) => $el.removeClass('selected'));
     this.group = [];
   }
+
+  applyStyle(style) {
+    this.group.forEach(($el) => $el.css(style));
+  }
 }
