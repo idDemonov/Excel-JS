@@ -12,7 +12,7 @@
   }
 }
 
-@mixin button($color: #e87676) {
+@mixin button($color) {
   cursor: pointer;
   user-select: none;
   background-color: transparent;
@@ -23,6 +23,12 @@
   @include focus();
 
   &:hover {
+    & > span {
+      color: $color;
+    }
+  }
+
+  &__active {
     & > span {
       color: $color;
     }
