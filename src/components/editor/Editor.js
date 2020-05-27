@@ -41,8 +41,14 @@ export class Editor extends ExcelComponent {
       this.selection.current.focus();
     });
 
-    this.$$attach('toolbar:style', (style) => {
-      this.selection.applyStyle(style);
+    this.$$attach('toolbar:style', (value) => {
+      this.selection.applyStyle(value);
+      this.$dispatch(
+        actions.applyStyle({
+          value,
+          ids: this.selection.selectedIds,
+        })
+      );
     });
   }
 

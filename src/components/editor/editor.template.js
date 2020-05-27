@@ -1,5 +1,5 @@
 import { defaultStyles } from '@/constants';
-import { camelCaseToDash } from '@core/utils';
+import { toInlineStyles } from '@core/utils';
 
 const WORD_CODES = {
   A: 65,
@@ -44,9 +44,10 @@ const toColumn = (state) => (letter, ind) => {
 const toCell = (row, state) => (_, ind) => {
   const id = `${row}:${ind}`;
   const width = getWidth(state, ind);
-  const style = Object.keys(defaultStyles)
-    .map((key) => `${camelCaseToDash(key)}: ${defaultStyles[key]}`)
-    .join(';');
+  const style = toInlineStyles({
+    ...defaultStyles,
+    ...state.stylesState[id],
+  });
   return `
     <div class="row__cell" 
          data-col="${ind}" 

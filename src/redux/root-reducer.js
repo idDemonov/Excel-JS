@@ -24,6 +24,16 @@ export const rootReducer = (state, action) => {
       };
     case types.CHANGE_STYLES:
       return { ...state, currentStyle: payload };
+    case types.APPLY_STYLE:
+      const newStyles = { ...state.stylesState };
+      payload.ids.forEach((id) => {
+        newStyles[id] = { ...newStyles[id], ...payload.value };
+      });
+      return {
+        ...state,
+        stylesState: newStyles,
+        currentStyle: { ...state.currentStyle, ...payload.value },
+      };
     default:
       return state;
   }

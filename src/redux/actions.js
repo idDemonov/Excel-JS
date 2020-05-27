@@ -20,3 +20,10 @@ export const changeStyles = (payload) => {
     payload,
   };
 };
+
+export const applyStyle = (payload) => {
+  return {
+    type: types.APPLY_STYLE,
+    payload,
+  };
+};
