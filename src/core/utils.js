@@ -10,11 +10,13 @@ export const range = (start, end) => {
 };
 
 export const storage = (key, data = null) => {
-  if (!data) {
-    return JSON.parse(localStorage.getItem(key));
-  }
+  if (!data) return JSON.parse(localStorage.getItem(key));
 
   return localStorage.setItem(key, JSON.stringify(data));
 };
 
 export const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+export const camelCaseToDash = (str) => {
+  return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
+};

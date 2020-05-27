@@ -13,3 +13,10 @@ export const changeText = (payload) => {
     payload,
   };
 };
+
+export const changeStyles = (payload) => {
+  return {
+    type: types.CHANGE_STYLES,
+    payload,
+  };
+};

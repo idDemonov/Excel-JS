@@ -95,6 +95,13 @@ class Dom {
       this.$nativeElement.style[key] = styles[key];
     });
   }
+
+  getStyles(styles = []) {
+    return styles.reduce((res, style) => {
+      res[style] = this.$nativeElement.style[style];
+      return res;
+    }, {});
+  }
 }
 
 export const $ = (s) => new Dom(s);

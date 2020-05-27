@@ -6,6 +6,7 @@ import { matrix } from '@/components/editor/editor.selection';
 import { keyboardHandler } from '@/components/editor/editor.keyboard';
 import { $ } from '@core/dom';
 import * as actions from '@/redux/actions';
+import { defaultStyles } from '@/constants';
 
 export class Editor extends ExcelComponent {
   static classes = ['excel__editor', 'editor'];
@@ -57,6 +58,8 @@ export class Editor extends ExcelComponent {
   selectionCell($cell) {
     this.selection.select($cell);
     this.$$notify('editor:select', $cell);
+    const style = $cell.getStyles(Object.keys(defaultStyles));
+    this.$dispatch(actions.changeStyles(style));
   }
 
   updateTextInStore(value) {
