@@ -8,7 +8,11 @@ export class ExcelComponent extends DomListener {
     this.observer = options.observer;
     this.store = options.store;
     this.unsubscribers = [];
+
+    this.prepare();
   }
+
+  prepare() {}
 
   toHTML() {
     return '';
