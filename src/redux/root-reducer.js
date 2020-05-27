@@ -34,6 +34,8 @@ export const rootReducer = (state, action) => {
         stylesState: newStyles,
         currentStyle: { ...state.currentStyle, ...payload.value },
       };
+    case types.CHANGE_TITLE:
+      return { ...state, title: payload };
     default:
       return state;
   }

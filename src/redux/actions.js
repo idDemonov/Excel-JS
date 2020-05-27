@@ -27,3 +27,10 @@ export const applyStyle = (payload) => {
     payload,
   };
 };
+
+export const changeTitle = (payload) => {
+  return {
+    type: types.CHANGE_TITLE,
+    payload,
+  };
+};
