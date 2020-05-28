@@ -1,3 +1,5 @@
+import { storage } from '@core/utils';
+
 export const homescreenTemplate = (id) => `
   <header class="homescreen__header header">
     <h1>Excel. Работа с Таблицами</h1>
@@ -33,10 +35,12 @@ const createSpreadsheets = () => {
   `;
 };
 
-const spreadsheetsItem = (data) => {
+const spreadsheetsItem = (key) => {
+  const excelState = storage(key);
+  const id = key.split(':')[1];
   return `
     <li class="spreadsheets__item">
-      <a href="#">${data.title}</a>
+      <a href="#excel/${id}">${excelState.title}</a>
       <strong>12.10.2019</strong>
     </li>
    `;
@@ -46,7 +50,6 @@ const getAllKeys = () => {
   const keys = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    console.log(key);
     if (!key.includes('excel')) {
       continue;
     }

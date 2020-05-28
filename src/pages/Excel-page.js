@@ -11,9 +11,12 @@ import { Editor } from '@/components/editor/Editor';
 
 export class ExcelPage extends Page {
   getRoot() {
-    const store = createStore(rootReducer, initialState);
+    const params = this.params || Date.now().toString();
 
-    const key = storageName(this.params);
+    const key = storageName(params);
+    const state = storage(key);
+    const store = createStore(rootReducer, initialState(state));
+
     store.subscribe(debounce((state) => storage(key, state), 300));
 
     this.excel = new Excel({
