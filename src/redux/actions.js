@@ -34,3 +34,9 @@ export const changeTitle = (payload) => {
     payload,
   };
 };
+
+export const updateDate = () => {
+  return {
+    type: types.UPDATE_DATE,
+  };
+};

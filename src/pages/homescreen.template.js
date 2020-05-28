@@ -37,11 +37,14 @@ const createSpreadsheets = () => {
 
 const spreadsheetsItem = (key) => {
   const excelState = storage(key);
+  const date = excelState.lastModifiedDate;
   const id = key.split(':')[1];
   return `
-    <li class="spreadsheets__item">
+    <li class="spreadsheets__item" 
+        title="Время просмотра: ${new Date(date).toLocaleTimeString()}"
+    >
       <a href="#excel/${id}">${excelState.title}</a>
-      <strong>12.10.2019</strong>
+      <strong>${new Date(date).toLocaleDateString()}</strong>
     </li>
    `;
 };

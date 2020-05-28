@@ -1,6 +1,7 @@
 import { ExcelComponent } from '@core/Excel-component';
 import { $ } from '@core/dom';
 import * as actions from '@/redux/actions';
+import { ActiveRoute } from '@/router/Active-route';
 
 export class Titlebar extends ExcelComponent {
   static classes = ['excel__titlebar', 'titlebar'];
@@ -8,7 +9,7 @@ export class Titlebar extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: 'Titlebar',
-      listeners: ['input'],
+      listeners: ['input', 'click'],
       ...options,
     });
   }
@@ -19,13 +20,13 @@ export class Titlebar extends ExcelComponent {
       <input type="text" class="titlebar__name" value="${title}" />
       
       <div class="titlebar__controls">
-        <button class="button">
-          <span class="material-icons">
+        <button class="button" data-button="remove">
+          <span class="material-icons" data-button="remove">
             delete_outline
           </span>
         </button>
-        <button class="button">
-          <span class="material-icons">
+        <button class="button" data-button="exit">
+          <span class="material-icons" data-button="exit">
             exit_to_app
           </span>
         </button>
@@ -36,5 +37,21 @@ export class Titlebar extends ExcelComponent {
   onInput(event) {
     const $target = $(event.target);
     this.$dispatch(actions.changeTitle($target.text()));
+  }
+
+  onClick(event) {
+    const $target = $(event.target);
+
+    if ($target.dataset.button === 'remove') {
+      const specify = confirm(
+        'Вы точно хотите уничтожить таблицу?\nДанные таблицы будут потеряны!!!'
+      );
+      if (specify) {
+        localStorage.removeItem('excel:' + ActiveRoute.param);
+        ActiveRoute.path = '';
+      }
+    } else if ($target.dataset.button === 'exit') {
+      ActiveRoute.path = '';
+    }
   }
 }
