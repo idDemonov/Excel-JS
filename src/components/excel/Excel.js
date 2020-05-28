@@ -3,12 +3,16 @@ import { EventObserver } from '@core/Observer';
 import { StoreSubscriber } from '@core/Store-subscriber';
 
 export class Excel {
-  constructor(selector, options) {
-    this.$container = $(selector);
+  constructor(options) {
     this.components = options.components || [];
     this.observer = new EventObserver();
     this.store = options.store;
     this.subscriber = new StoreSubscriber(this.store);
+  }
+
+  init() {
+    this.subscriber.subscribeComponents(this.components);
+    this.components.forEach((component) => component.init());
   }
 
   getRoot() {
@@ -29,13 +33,6 @@ export class Excel {
     });
 
     return $root;
-  }
-
-  render() {
-    this.$container.append(this.getRoot());
-
-    this.subscriber.subscribeComponents(this.components);
-    this.components.forEach((component) => component.init());
   }
 
   destroy() {

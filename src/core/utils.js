@@ -38,3 +38,5 @@ export const debounce = (fn, ms) => {
     timeout = setTimeout(later, ms);
   };
 };
+
+export const storageName = (param) => `excel:${param}`;
