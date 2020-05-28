@@ -69,9 +69,14 @@ class Dom {
     this.$nativeElement.classList.remove(name);
     return this;
   }
-
+  // добавить курсор в конец строки
   focus() {
-    this.$nativeElement.focus();
+    const range = document.createRange();
+    range.selectNodeContents(this.$nativeElement);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
     return this;
   }
 
@@ -104,7 +109,7 @@ class Dom {
   }
 
   attr(name, value) {
-    if (value) {
+    if (typeof value === 'string') {
       this.$nativeElement.setAttribute(name, value);
       return this;
     }

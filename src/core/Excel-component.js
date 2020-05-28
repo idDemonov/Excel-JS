@@ -32,9 +32,7 @@ export class ExcelComponent extends DomListener {
     this.store.dispatch(action);
   }
 
-  storeChanged(changes) {
-    console.log(changes);
-  }
+  storeChanged(changes) {}
 
   // $$ - Методы Observer`а
   $$attach(event, fn) {

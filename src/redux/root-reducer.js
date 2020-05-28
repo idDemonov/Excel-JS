@@ -36,6 +36,8 @@ export const rootReducer = (state, action) => {
       };
     case types.CHANGE_TITLE:
       return { ...state, title: payload };
+    case types.UPDATE_DATE:
+      return { ...state, lastModifiedDate: new Date().toJSON() };
     default:
       return state;
   }

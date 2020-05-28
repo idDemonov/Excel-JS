@@ -1,14 +1,20 @@
 import { $ } from '@core/dom';
 import { EventObserver } from '@core/Observer';
 import { StoreSubscriber } from '@core/Store-subscriber';
+import * as actions from '@/redux/actions';
 
 export class Excel {
-  constructor(selector, options) {
-    this.$container = $(selector);
+  constructor(options) {
     this.components = options.components || [];
     this.observer = new EventObserver();
     this.store = options.store;
     this.subscriber = new StoreSubscriber(this.store);
+  }
+
+  init() {
+    this.store.dispatch(actions.updateDate());
+    this.subscriber.subscribeComponents(this.components);
+    this.components.forEach((component) => component.init());
   }
 
   getRoot() {
@@ -29,13 +35,6 @@ export class Excel {
     });
 
     return $root;
-  }
-
-  render() {
-    this.$container.append(this.getRoot());
-
-    this.subscriber.subscribeComponents(this.components);
-    this.components.forEach((component) => component.init());
   }
 
   destroy() {
