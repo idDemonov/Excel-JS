@@ -104,7 +104,7 @@ class Dom {
   }
 
   attr(name, value) {
-    if (value) {
+    if (typeof value === 'string') {
       this.$nativeElement.setAttribute(name, value);
       return this;
     }
