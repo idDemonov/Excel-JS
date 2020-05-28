@@ -6,3 +6,14 @@ export const defaultStyles = {
 };
 
 export const defaultTitle = 'Новая Таблица';
+
+export const defaultState = {
+  title: defaultTitle,
+  colState: {},
+  rowState: {},
+  dataState: {},
+  stylesState: {},
+  currentText: '',
+  currentStyle: defaultStyles,
+  lastModifiedDate: new Date().toJSON(),
+};

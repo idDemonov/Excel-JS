@@ -1,15 +1,4 @@
-import { defaultStyles, defaultTitle } from '@/constants';
-
-const defaultState = {
-  title: defaultTitle,
-  colState: {},
-  rowState: {},
-  dataState: {},
-  stylesState: {},
-  currentText: '',
-  currentStyle: defaultStyles,
-  lastModifiedDate: new Date().toJSON(),
-};
+import { defaultState, defaultStyles } from '@/constants';
 
 const normalize = (state) => ({
   ...state,
@@ -18,5 +7,5 @@ const normalize = (state) => ({
 });
 
 export const initialState = (state) => {
-  return state ? normalize(state) : defaultState; // WTF normalize!?
+  return state ? normalize(state) : defaultState;
 };
