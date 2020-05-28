@@ -4,9 +4,15 @@ export class ExcelComponent extends DomListener {
   constructor($root, options = {}) {
     super($root, options.listeners);
     this.name = options.name || '';
+    this.subscribe = options.subscribe || [];
     this.observer = options.observer;
+    this.store = options.store;
     this.unsubscribers = [];
+
+    this.prepare();
   }
+
+  prepare() {}
 
   toHTML() {
     return '';
@@ -21,13 +27,22 @@ export class ExcelComponent extends DomListener {
     this.unsubscribers.forEach((unsubscriber) => unsubscriber());
   }
 
+  // $ - Методы Redux
+  $dispatch(action) {
+    this.store.dispatch(action);
+  }
+
+  storeChanged(changes) {
+    console.log(changes);
+  }
+
   // $$ - Методы Observer`а
-  $$subscribe(event, fn) {
-    const unsubscriber = this.observer.subscribe(event, fn);
+  $$attach(event, fn) {
+    const unsubscriber = this.observer.attach(event, fn);
     this.unsubscribers.push(unsubscriber);
   }
 
-  $$dispatch(event, ...args) {
-    this.observer.dispatch(event, ...args);
+  $$notify(event, ...args) {
+    this.observer.notify(event, ...args);
   }
 }

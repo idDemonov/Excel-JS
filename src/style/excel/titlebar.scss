@@ -18,6 +18,6 @@
   }
 
   .button {
-    @include button();
+    @include button(#e87676);
   }
 }

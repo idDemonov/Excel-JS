@@ -22,4 +22,12 @@ export class EditorSelection {
     this.group.forEach(($el) => $el.removeClass('selected'));
     this.group = [];
   }
+
+  applyStyle(style) {
+    this.group.forEach(($el) => $el.css(style));
+  }
+
+  get selectedIds() {
+    return this.group.map(($el) => $el.id());
+  }
 }

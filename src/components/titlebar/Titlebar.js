@@ -1,4 +1,6 @@
 import { ExcelComponent } from '@core/Excel-component';
+import { $ } from '@core/dom';
+import * as actions from '@/redux/actions';
 
 export class Titlebar extends ExcelComponent {
   static classes = ['excel__titlebar', 'titlebar'];
@@ -6,14 +8,15 @@ export class Titlebar extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: 'Titlebar',
-      listeners: [],
+      listeners: ['input'],
       ...options,
     });
   }
 
   toHTML() {
+    const title = this.store.getState().title;
     return `
-      <input type="text" class="titlebar__name" value="Новая таблица" />
+      <input type="text" class="titlebar__name" value="${title}" />
       
       <div class="titlebar__controls">
         <button class="button">
@@ -27,6 +30,11 @@ export class Titlebar extends ExcelComponent {
           </span>
         </button>
       </div>
-`;
+    `;
+  }
+
+  onInput(event) {
+    const $target = $(event.target);
+    this.$dispatch(actions.changeTitle($target.text()));
   }
 }

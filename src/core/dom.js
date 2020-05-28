@@ -15,7 +15,7 @@ class Dom {
   }
 
   text(text) {
-    if (typeof text === 'string') {
+    if (typeof text !== 'undefined') {
       this.$nativeElement.textContent = text;
       return this;
     }
@@ -94,6 +94,21 @@ class Dom {
     Object.keys(styles).forEach((key) => {
       this.$nativeElement.style[key] = styles[key];
     });
+  }
+
+  getStyles(styles = []) {
+    return styles.reduce((res, style) => {
+      res[style] = this.$nativeElement.style[style];
+      return res;
+    }, {});
+  }
+
+  attr(name, value) {
+    if (value) {
+      this.$nativeElement.setAttribute(name, value);
+      return this;
+    }
+    return this.$nativeElement.getAttribute(name);
   }
 }
 

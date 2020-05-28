@@ -8,6 +8,7 @@ export class Formula extends ExcelComponent {
     super($root, {
       name: 'Formula',
       listeners: ['input', 'keydown'],
+      subscribe: ['currentText'],
       ...options,
     });
   }
@@ -24,23 +25,23 @@ export class Formula extends ExcelComponent {
 
     this.$formula = this.$root.find('.formula__input');
 
-    this.$$subscribe('editor:select', ($cell) => {
-      this.$formula.text($cell.text());
-    });
-
-    this.$$subscribe('editor:input', ($cell) => {
-      this.$formula.text($cell.text());
+    this.$$attach('editor:select', ($cell) => {
+      this.$formula.text($cell.dataset.value);
     });
   }
 
+  storeChanged({ currentText }) {
+    this.$formula.text(currentText);
+  }
+
   onInput({ target }) {
-    this.$$dispatch('formula:input', $(target).text());
+    this.$$notify('formula:input', $(target).text());
   }
 
   onKeydown(event) {
     const keys = ['Enter', 'Tab'];
     if (!keys.includes(event.key)) return;
     event.preventDefault();
-    this.$$dispatch('formula:enter');
+    this.$$notify('formula:enter');
   }
 }

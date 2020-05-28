@@ -8,3 +8,33 @@ export const range = (start, end) => {
 
   return new Array(end - start + 1).fill('').map((_, ind) => start + ind);
 };
+
+export const storage = (key, data = null) => {
+  if (!data) return JSON.parse(localStorage.getItem(key));
+
+  return localStorage.setItem(key, JSON.stringify(data));
+};
+
+export const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+export const camelCaseToDash = (str) => {
+  return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
+};
+
+export const toInlineStyles = (style = {}) => {
+  return Object.keys(style)
+    .map((key) => `${camelCaseToDash(key)}: ${style[key]}`)
+    .join(';');
+};
+
+export const debounce = (fn, ms) => {
+  let timeout;
+  return (...args) => {
+    const later = () => {
+      clearTimeout(timeout);
+      fn(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, ms);
+  };
+};
