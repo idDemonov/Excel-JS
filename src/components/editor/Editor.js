@@ -7,6 +7,7 @@ import { keyboardHandler } from '@/components/editor/editor.keyboard';
 import { $ } from '@core/dom';
 import * as actions from '@/redux/actions';
 import { defaultStyles } from '@/constants';
+import { parse } from '@core/parse';
 
 export class Editor extends ExcelComponent {
   static classes = ['excel__editor', 'editor'];
@@ -32,9 +33,9 @@ export class Editor extends ExcelComponent {
 
     this.selectionCell(this.$root.find('[data-id="0:0"]'));
 
-    this.$$attach('formula:input', (text) => {
-      this.selection.current.text(text);
-      this.updateTextInStore(text);
+    this.$$attach('formula:input', (value) => {
+      this.selection.current.attr('data-value', value).text(parse(value));
+      this.updateTextInStore(value);
     });
 
     this.$$attach('formula:enter', () => {

@@ -1,5 +1,6 @@
 import { defaultStyles } from '@/constants';
 import { toInlineStyles } from '@core/utils';
+import { parse } from '@core/parse';
 
 const WORD_CODES = {
   A: 65,
@@ -53,8 +54,9 @@ const toCell = (row, state) => (_, ind) => {
          data-col="${ind}" 
          style="${style}; width: ${width}"
          data-id="${id}" 
+         data-value="${state.dataState?.[id] || ''}"
          contenteditable>
-        ${state.dataState?.[id] || ''}
+        ${parse(state.dataState?.[id] || '')}
     </div>
   `;
 };
