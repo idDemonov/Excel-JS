@@ -9,7 +9,7 @@ const reducer = (state, actions) => {
   }
 };
 
-describe('createStore', () => {
+describe('create-store', () => {
   let store = null;
   let state = null;
   let subscriber = null;

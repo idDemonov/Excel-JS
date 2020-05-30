@@ -1,4 +1,4 @@
-class Dom {
+export class Dom {
   constructor(selector) {
     this.$nativeElement =
       typeof selector === 'string'

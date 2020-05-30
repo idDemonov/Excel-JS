@@ -1,6 +1,6 @@
 import { defaultStyles } from '@/constants';
 import { toInlineStyles } from '@core/utils';
-import { parse } from '@core/parse';
+import { parse } from '@core/utils';
 
 const WORD_CODES = {
   A: 65,
