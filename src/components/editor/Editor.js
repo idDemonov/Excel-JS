@@ -7,7 +7,7 @@ import { keyboardHandler } from '@/components/editor/editor.keyboard';
 import { $ } from '@core/dom';
 import * as actions from '@/redux/actions';
 import { defaultStyles } from '@/constants';
-import { parse } from '@core/parse';
+import { parse } from '@core/utils';
 
 export class Editor extends ExcelComponent {
   static classes = ['excel__editor', 'editor'];
