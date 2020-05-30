@@ -39,4 +39,11 @@ export const debounce = (fn, ms) => {
   };
 };
 
+export const parse = (value = '') => {
+  if (value.startsWith('=')) {
+    return eval(value.slice(1));
+  }
+  return value;
+};
+
 export const storageName = (param) => `excel:${param}`;
