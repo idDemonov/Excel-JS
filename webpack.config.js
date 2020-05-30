@@ -8,18 +8,11 @@ const path = require('path');
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 
-const filename = ext => (isProd ? `bundle.[hash].${ext}` : `bundle.${ext}`);
+const filename = (ext) => (isProd ? `bundle.[hash].${ext}` : `bundle.${ext}`);
 
 const jsLoaders = () => {
-  const loader = [
-    {
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env'],
-        plugins: ['@babel/plugin-proposal-class-properties'],
-      },
-    },
-  ];
+  const loader = ['babel-loader'];
+
   return isDev ? [...loader, 'eslint-loader'] : loader;
 };
 
