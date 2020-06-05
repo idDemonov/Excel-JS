@@ -1,9 +1,10 @@
 import { DomListener } from '@core/Dom-listener';
 
 export class ExcelComponent extends DomListener {
+  private name: string;
   constructor($root, options = {}) {
     super($root, options.listeners);
-    this.name = options.name || '';
+    this.name = options.name;
     this.subscribe = options.subscribe || [];
     this.observer = options.observer;
     this.store = options.store;

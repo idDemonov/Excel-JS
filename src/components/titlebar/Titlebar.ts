@@ -1,12 +1,12 @@
 import { ExcelComponent } from '@core/Excel-component';
-import { $ } from '@core/dom';
+import { $, Dom } from '@core/dom';
 import * as actions from '@/redux/actions';
-import { ActiveRoute } from '@/router/Active-route';
+import { RouterPath } from '@/router/Router-path';
 
 export class Titlebar extends ExcelComponent {
   static classes = ['excel__titlebar', 'titlebar'];
 
-  constructor($root, options) {
+  protected constructor($root: Dom, options) {
     super($root, {
       name: 'Titlebar',
       listeners: ['input', 'click'],
@@ -47,11 +47,11 @@ export class Titlebar extends ExcelComponent {
         'Вы точно хотите уничтожить таблицу?\nДанные таблицы будут потеряны!!!'
       );
       if (specify) {
-        localStorage.removeItem('excel:' + ActiveRoute.param);
-        ActiveRoute.path = '';
+        localStorage.removeItem('excel:' + RouterPath.param);
+        RouterPath.path = '';
       }
     } else if ($target.dataset.button === 'exit') {
-      ActiveRoute.path = '';
+      RouterPath.path = '';
     }
   }
 }
