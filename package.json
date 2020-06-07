@@ -13,10 +13,10 @@
     "not dead"
   ],
   "scripts": {
-    "start": "yarn test && yarn dev webpack-dev-server --open",
-    "build": "yarn prod webpack --mode production",
-    "dev": "cross-env NODE_ENV=development",
-    "prod": "cross-env NODE_ENV=production",
+    "start": "yarn _dev webpack-dev-server --open",
+    "build": "yarn _prod webpack --mode production",
+    "_dev": "cross-env NODE_ENV=development",
+    "_prod": "cross-env NODE_ENV=production",
     "deploy": "gh-pages -d dist",
     "test": "jest"
   },
