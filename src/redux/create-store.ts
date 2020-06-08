@@ -1,23 +1,29 @@
-export const createStore = (rootReducer, initialState) => {
-  let state = rootReducer(initialState, '__INIT__');
-  let listeners = [];
+import { ActionsType, TReducer, TState, TStore } from '@/interface';
+import { initState } from '@/redux/actions';
+
+export const createStore = (
+  rootReducer: TReducer,
+  initialState: TState
+): TStore => {
+  let state = rootReducer(initialState, initState());
+  let listeners: ((state: TState) => void)[] = [];
 
   return {
-    subscribe(listener) {
+    subscribe(listener: (state: TState) => void): { unsubscribe: () => void } {
       listeners.push(listener);
       return {
-        unsubscribe() {
+        unsubscribe(): void {
           listeners = listeners.filter((fn) => fn !== listener);
         },
       };
     },
 
-    dispatch(action) {
+    dispatch(action: ActionsType): void {
       state = rootReducer(state, action);
       listeners.forEach((listener) => listener(state));
     },
 
-    getState() {
+    getState(): TState {
       return JSON.parse(JSON.stringify(state));
     },
   };
