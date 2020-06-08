@@ -1,3 +1,4 @@
+export const INIT_STATE = 'INIT_STATE';
 export const EDITOR_RESIZE = 'EDITOR_RESIZE';
 export const CHANGE_TEXT = 'CHANGE_TEXT';
 export const APPLY_STYLE = 'APPLY_STYLE';
