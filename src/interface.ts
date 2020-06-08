@@ -3,7 +3,6 @@ import { Titlebar } from '@/components/titlebar/Titlebar';
 import { Toolbar } from '@/components/toolbar/Toolbar';
 import { Formula } from '@/components/formula/Formula';
 import { Editor } from '@/components/editor/Editor';
-import { createStore } from '@/redux/create-store';
 import {
   CallType,
   EventObserver,
@@ -59,7 +58,11 @@ export interface IExcel {
 }
 
 // Тип Store в Redux
-export type TStore = ReturnType<typeof createStore>;
+export type TStore = {
+  dispatch(action: ActionsType): void;
+  getState(): TState;
+  subscribe(listener: (state: TState) => void): { unsubscribe: () => void };
+};
 
 // Опции передаваемые в Excel
 export type ExcelOptions = {
@@ -235,9 +238,4 @@ export type TState = {
   readonly currentText: string;
   readonly currentStyle: TStylesCell;
   readonly lastModifiedDate: string;
-};
-
-// Тип возвращаемый из метода getStyle
-export type RGetStyle<T extends keyof CSSStyleDeclaration> = {
-  [K in T]: CSSStyleDeclaration[K];
 };
