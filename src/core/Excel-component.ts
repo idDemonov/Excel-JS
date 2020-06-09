@@ -1,47 +1,54 @@
-import { DomListener } from '@core/Dom-listener';
+import {
+  ActionsType,
+  IDom,
+  IExcelComponent,
+  TOptionsElComp,
+  TStore,
+} from '@/interface';
+import { EventObserver, Events, CallType } from '@core/Event-observer';
 
-export class ExcelComponent extends DomListener {
+export class ExcelComponent implements IExcelComponent {
+  store: TStore;
+  subscribe: string[];
   private name: string;
-  constructor($root, options = {}) {
-    super($root, options.listeners);
-    this.name = options.name;
-    this.subscribe = options.subscribe || [];
-    this.observer = options.observer;
-    this.store = options.store;
+  private observer: EventObserver;
+  private unsubscribers: (() => void)[];
+  $root: IDom;
+
+  constructor($root: IDom, options: TOptionsElComp) {
     this.unsubscribers = [];
+    this.name = options.name;
+    this.store = options.store;
+    this.observer = options.observer;
+    this.subscribe = options.subscribe || [];
+    this.$root = $root;
 
     this.prepare();
   }
 
-  prepare() {}
+  prepare(): void {}
 
-  toHTML() {
-    return '';
-  }
+  toHTML(): void {}
 
-  init() {
-    this.initDOMListeners();
-  }
+  init(): void {}
 
-  destroy() {
-    this.removeDOMListeners();
+  destroy(): void {
     this.unsubscribers.forEach((unsubscriber) => unsubscriber());
   }
 
   // $ - Методы Redux
-  $dispatch(action) {
+  $dispatch(action: ActionsType): void {
     this.store.dispatch(action);
   }
 
-  storeChanged(changes) {}
-
   // $$ - Методы Observer`а
-  $$attach(event, fn) {
+  $$attach<T>(event: Events, fn: (par: CallType<T>) => void): void {
     const unsubscriber = this.observer.attach(event, fn);
     this.unsubscribers.push(unsubscriber);
   }
 
-  $$notify(event, ...args) {
-    this.observer.notify(event, ...args);
+  $$notify<T>(event: Events, evt?: CallType<T>): void {
+    if (evt) this.observer.notify(event, evt);
+    else this.observer.notify(event);
   }
 }
