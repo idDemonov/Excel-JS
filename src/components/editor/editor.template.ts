@@ -1,8 +1,13 @@
-import { defaultStyles } from '@/constants';
 import { toInlineStyles } from '@core/utils';
 import { parse } from '@core/utils';
+import { TState } from '@/interface';
+import { defaultStyles } from '@/redux/initial-state';
 
-const WORD_CODES = {
+type TWordCodes = {
+  readonly [key: string]: number;
+};
+
+const WORD_CODES: TWordCodes = {
   A: 65,
   Z: 90,
 };
@@ -10,18 +15,23 @@ const WORD_CODES = {
 const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 24;
 
-const toChar = (_, ind) => String.fromCharCode(WORD_CODES.A + ind);
+const toChar = (_: void, ind: number): string =>
+  String.fromCharCode(WORD_CODES.A + ind);
 
-const getWidth = (state, ind) => {
-  return (state?.colState?.[ind] || DEFAULT_WIDTH) + 'px';
+const getWidth = (state: TState, ind: number): string => {
+  return (state.colState?.[ind] || DEFAULT_WIDTH) + 'px';
 };
 
-const getHeight = (state, ind) => {
-  return (state?.rowState?.[ind] || DEFAULT_HEIGHT) + 'px';
+const getHeight = (state: TState, ind: number): string => {
+  return (state.rowState?.[ind] || DEFAULT_HEIGHT) + 'px';
 };
 
-const createRow = (num, content, state = {}) => {
-  const height = getHeight(state, num);
+const createRow = (
+  num: number | null,
+  content: string,
+  state: TState
+): string => {
+  const height = num ? getHeight(state, num) : DEFAULT_HEIGHT;
   const resize = '<div class="resize" data-resize="row"></div>';
 
   return `
@@ -31,7 +41,7 @@ const createRow = (num, content, state = {}) => {
     </div>`;
 };
 
-const toColumn = (state) => (letter, ind) => {
+const toColumn = (state: TState) => (letter: string, ind: number): string => {
   const width = getWidth(state, ind);
   const resize = '<div class="resize" data-resize="col"></div>';
 
@@ -42,12 +52,16 @@ const toColumn = (state) => (letter, ind) => {
   `;
 };
 
-const toCell = (row, state) => (_, ind) => {
+const toCell = (row: number, state: TState) => (
+  _: void,
+  ind: number
+): string => {
   const id = `${row}:${ind}`;
   const width = getWidth(state, ind);
+
   const style = toInlineStyles({
     ...defaultStyles,
-    ...state.stylesState[id],
+    ...state.stylesState?.[id],
   });
   return `
     <div class="row__cell" 
@@ -61,19 +75,17 @@ const toCell = (row, state) => (_, ind) => {
   `;
 };
 
-export const createTable = (rowCount = 15, state = {}) => {
+export const createTable = (rowCount = 15, state: TState): string => {
   const colsCount = WORD_CODES.Z - WORD_CODES.A + 1;
-  const rows = [];
+  const rows: string[] = [];
 
-  // Создание первой линии с буквами
   const cols = new Array(colsCount)
     .fill('')
     .map(toChar)
     .map(toColumn(state))
     .join('');
-  rows.push(createRow(null, cols));
+  rows.push(createRow(null, cols, state));
 
-  // Создание остальных линий
   for (let count = 0; count < rowCount; count++) {
     const cells = new Array(colsCount)
       .fill('')
