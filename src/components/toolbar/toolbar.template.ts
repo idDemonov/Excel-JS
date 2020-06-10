@@ -1,4 +1,6 @@
-const createButton = (button) => {
+import { TStylesCell } from '@/interface';
+
+const createButton = (button: TButton): string => {
   const value = JSON.stringify(button.value);
   const meta = `
   data-type="button"
@@ -11,8 +13,8 @@ const createButton = (button) => {
     `;
 };
 
-export const createToolbar = (state) => {
-  const buttons = [
+export const createToolbar = (state: TStylesCell): string => {
+  const buttons: TButton[] = [
     {
       icon: 'format_align_left',
       active: state['textAlign'] === 'left',
@@ -51,4 +53,10 @@ export const createToolbar = (state) => {
   ];
 
   return buttons.map(createButton).join('');
+};
+
+type TButton = {
+  icon: string;
+  active: boolean;
+  value: { [key in keyof TStylesCell]?: string };
 };
