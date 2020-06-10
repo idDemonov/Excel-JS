@@ -1,5 +1,13 @@
-export const keyboardHandler = (event, selection, $root) => {
-  const keys = [
+import { EditorSelection } from '@/components/editor/Editor-selection';
+
+import { IDom, Iid } from '@/interface';
+
+export const keyboardHandler = (
+  event: KeyboardEvent,
+  selection: EditorSelection,
+  $root: IDom
+): IDom | void => {
+  const keys: string[] = [
     'Enter',
     'Tab',
     'ArrowUp',
@@ -9,19 +17,20 @@ export const keyboardHandler = (event, selection, $root) => {
   ];
 
   const { key } = event;
+  if (!selection.current) throw Error(`${selection} не определён`);
 
   if (keys.includes(key) && !event.shiftKey) {
     event.preventDefault();
-    const id = selection.current.id(true);
+    const id = selection.current.idCell();
     const $next = $root.find(nextSelector(key, id));
     selection.select($next);
     return $next;
   }
 };
 
-export const nextSelector = (key, { col, row }) => {
+export const nextSelector = (key: string, { col, row }: Iid): string => {
   const MIN_VALUE = 0;
-  const MAX_VALUE = 24; // Временная заглушка
+  const MAX_VALUE = 24; // Задать ограничение правильно!!!
 
   switch (key) {
     case 'Enter':
