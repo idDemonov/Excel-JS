@@ -1,18 +1,23 @@
-import { $ } from '@core/dom';
+import { $ } from '@core/Dom';
+import { PayloadEditorResize, IDom } from '@/interface';
 
-export const resizeHandler = ($root, event) => {
+export const resizeHandler = (
+  $root: IDom,
+  event: Event
+): Promise<PayloadEditorResize> => {
   event.preventDefault(); // Убрать выделение
+
   return new Promise((resolve) => {
-    const $resize = $(event.target);
+    const $resize = $(event.target as HTMLElement); // Добавить проверку
     const $parent = $resize.closest('[data-type="resize"]');
     const coords = $parent.getCoords();
     const type = $resize.dataset.resize;
 
     const sideProp = type === 'col' ? 'bottom' : 'right';
     const cursor = type === 'col' ? 'w-resize' : 's-resize';
-    let value;
+    let value: number;
 
-    $resize.css({ opacity: 1, [sideProp]: '-5000px' });
+    $resize.css({ opacity: '1', [sideProp]: '-5000px' });
     document.body.style.cursor = cursor;
 
     document.onmousemove = (e) => {
@@ -30,7 +35,10 @@ export const resizeHandler = ($root, event) => {
     document.onmouseup = () => {
       document.onmousemove = null;
       document.onmouseup = null;
-      document.body.style.cursor = null;
+      document.body.style.cursor = '';
+      if (!type || !$parent.dataset[type]) {
+        throw Error('Не удалось определить тип или id ресайза');
+      }
 
       if (type === 'col') {
         $parent.css({ width: value + 'px' });
@@ -41,13 +49,15 @@ export const resizeHandler = ($root, event) => {
         $parent.css({ height: value + 'px' });
       }
 
+      const id: string = $parent.dataset[type] as string; // Проверка проведена выше
+
       resolve({
         value,
         type,
-        id: $parent.dataset[type],
+        id,
       });
 
-      $resize.css({ opacity: 0, bottom: 0, right: 0 });
+      $resize.css({ opacity: '0', bottom: '0', right: '0' });
     };
   });
 };
