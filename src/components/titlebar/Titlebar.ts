@@ -1,20 +1,25 @@
 import { ExcelComponent } from '@core/Excel-component';
-import { $, Dom } from '@core/dom';
+import { $ } from '@core/Dom';
 import * as actions from '@/redux/actions';
 import { RouterPath } from '@/router/Router-path';
+import { IDom, ITitlebar, TComponentsOptions } from '@/interface';
 
-export class Titlebar extends ExcelComponent {
-  static classes = ['excel__titlebar', 'titlebar'];
+export class Titlebar extends ExcelComponent implements ITitlebar {
+  static classes: string[] = ['excel__titlebar', 'titlebar'];
 
-  protected constructor($root: Dom, options) {
+  constructor($root: IDom, options: TComponentsOptions) {
     super($root, {
       name: 'Titlebar',
-      listeners: ['input', 'click'],
       ...options,
     });
   }
 
-  toHTML() {
+  init(): void {
+    this.$root.on('click', this.onClick);
+    this.$root.on('input', this.onInput);
+  }
+
+  toHTML(): string {
     const title = this.store.getState().title;
     return `
       <input type="text" class="titlebar__name" value="${title}" />
@@ -34,24 +39,37 @@ export class Titlebar extends ExcelComponent {
     `;
   }
 
-  onInput(event) {
-    const $target = $(event.target);
-    this.$dispatch(actions.changeTitle($target.text()));
-  }
+  onInput = (event: Event): void => {
+    if (event.target instanceof HTMLElement) {
+      const $target = $(event.target);
+      this.$dispatch(actions.changeTitle($target.text() as string));
+    }
+  };
 
-  onClick(event) {
-    const $target = $(event.target);
+  onClick = (event: MouseEvent): void => {
+    if (event.target instanceof HTMLElement) {
+      const $target = $(event.target);
 
-    if ($target.dataset.button === 'remove') {
-      const specify = confirm(
-        'Вы точно хотите уничтожить таблицу?\nДанные таблицы будут потеряны!!!'
-      );
-      if (specify) {
-        localStorage.removeItem('excel:' + RouterPath.param);
+      if ($target.dataset.button === 'remove') {
+        const specify = confirm(
+          'Вы точно хотите уничтожить таблицу?\nДанные таблицы будут потеряны!!!'
+        );
+        if (specify) {
+          localStorage.removeItem('excel:' + RouterPath.param);
+          RouterPath.path = '';
+        }
+      } else if ($target.dataset.button === 'exit') {
         RouterPath.path = '';
       }
-    } else if ($target.dataset.button === 'exit') {
-      RouterPath.path = '';
     }
+  };
+
+  storeChanged(): void {} // Для подписки на изменения
+
+  destroy(): void {
+    super.destroy();
+
+    this.$root.removeEvent('click', this.onClick);
+    this.$root.removeEvent('input', this.onInput);
   }
 }
