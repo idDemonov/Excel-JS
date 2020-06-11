@@ -1,45 +1,59 @@
 import { createToolbar } from '@/components/toolbar/toolbar.template';
-import { $ } from '@core/dom';
+import { $ } from '@core/Dom';
 import { ExcelStateComponents } from '@core/Excel-state-components';
-import { defaultStyles } from '@/constants';
+import { IDom, IToolbar, TComponentsOptions, TStylesCell } from '@/interface';
+import { defaultStyles } from '@/redux/initial-state';
 
-export class Toolbar extends ExcelStateComponents {
-  static classes = ['excel__toolbar', 'toolbar'];
+export class Toolbar extends ExcelStateComponents implements IToolbar {
+  static classes: string[] = ['excel__toolbar', 'toolbar'];
 
-  constructor($root, options) {
+  constructor($root: IDom, options: TComponentsOptions) {
     super($root, {
       name: 'Toolbar',
-      listeners: ['click'],
       subscribe: ['currentStyle'],
       ...options,
     });
   }
 
-  prepare() {
+  init(): void {
+    this.$root.on('click', this.onClick);
+  }
+
+  prepare(): void {
     this.initState(defaultStyles);
   }
 
-  get template() {
+  get template(): string {
+    if (!this.state) {
+      throw Error(
+        'Состояние стилей используется раньше чем инициализированы компоненты'
+      );
+    }
     return createToolbar(this.state);
   }
 
-  toHTML() {
+  toHTML(): string {
     return this.template;
   }
 
-  storeChanged(changes) {
-    this.setState(changes.currentStyle);
+  storeChanged(changes: Record<string, unknown>): void {
+    this.setState(changes.currentStyle as TStylesCell);
   }
 
-  onClick(event) {
-    const $target = $(event.target);
-    if ($target.dataset.type === 'button') {
-      const value = JSON.parse($target.dataset.value);
-      // const key = Object.keys(value)[0];
+  onClick = (event: MouseEvent): void => {
+    if (event.target instanceof HTMLElement) {
+      const $target = $(event.target);
 
-      this.$$notify('toolbar:style', value);
-
-      // this.setState({ [key]: value[key] });
+      if ($target.dataset.type === 'button') {
+        if (!$target.dataset.value) throw Error('Не прочитан value при клике');
+        const value = JSON.parse($target.dataset.value);
+        this.$$notify('toolbar:style', value);
+      }
     }
+  };
+
+  destroy(): void {
+    super.destroy();
+    this.$root.removeEvent('click', this.onClick);
   }
 }
