@@ -1,0 +1,14 @@
+import { IDom, TState } from '@/interface';
+export declare const range: (start: number, end: number) => number[];
+export declare const getStorage: (key: string) => TState | null;
+export declare const isState: (state: TState | unknown) => state is TState;
+export declare const setStorage: (key: string, data: unknown) => void;
+export declare const storageName: (param: string) => string;
+export declare const isEqual: <T, U>(a: T, b: U) => boolean;
+export declare const camelCaseToDash: (str: string) => string;
+export declare const toInlineStyles: (style: Record<string, string>) => string;
+export declare const debounce: (fn: (...args: unknown[]) => void, ms: number) => (() => void);
+export declare const parse: (value: string | undefined) => string;
+export declare const isDefined: <T>(value: T | null | undefined) => value is T;
+export declare const keys: <O extends Record<string, unknown>>(obj: O) => (keyof O)[];
+export declare const matrix: ($target: IDom, $current: IDom) => string[];
